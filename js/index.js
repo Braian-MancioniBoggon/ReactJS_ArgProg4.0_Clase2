@@ -129,6 +129,7 @@ const consultarNuevaOperacion = (nuevaOperacion) => {
 };
 
 uno.addEventListener("click", () => {consultarNuevaOperacion(concatenarNumeros(uno.innerHTML))});
+dos.addEventListener("click", () => {consultarNuevaOperacion(concatenarNumeros(dos.innerHTML))});
 mas.addEventListener("click", () => {consultarNuevaOperacion(obtenerOperador(mas.innerHTML))});
 igual.addEventListener("click", () => {finalizarCalculo()});
 reset.addEventListener("click", () => {resetearCalculadora()});
