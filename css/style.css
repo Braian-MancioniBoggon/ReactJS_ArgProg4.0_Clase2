@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #e8e8e8;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    justify-content: space-evenly;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+}
+
+#pantalla{
+    width: 100%;
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+#contenedorBotonera{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btnCalculadora{
+    width: 30%;
+    height: 20px;
+    text-align: center;
+    padding: 15px 0px;
+}
