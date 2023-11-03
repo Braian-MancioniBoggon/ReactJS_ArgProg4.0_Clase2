@@ -4,8 +4,8 @@
 Tengo desarrollada la siguiente función en javascript  
 
 function suma (a,b,callback){  
-let c = a +b;  
-callback();  
+    let c = a +b;  
+    callback();  
 }  
 
 ¿Que es el tercer parámetro recibido?  
