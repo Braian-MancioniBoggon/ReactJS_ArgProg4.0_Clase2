@@ -5,29 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
         <div id="container">
-            <input type="text" name="pantalla" id="pantalla" >
+            <input type="number" name="pantalla" id="pantalla" max="9999999" disabled>
             <div id="contenedorBotonera">
-                <div id="8" class="btnCalculadora numero">8</div>
-                <div id="9" class="btnCalculadora numero">9</div>
-                <div id="mas" class="btnCalculadora operador">+</div>
-                <div id="6" class="btnCalculadora numero">6</div>
-                <div id="7" class="btnCalculadora numero">7</div>
-                <div id="menos" class="btnCalculadora operador">-</div>
-                <div id="4" class="btnCalculadora numero">4</div>
-                <div id="5" class="btnCalculadora numero">5</div>
-                <div id="por" class="btnCalculadora operador">*</div>
-                <div id="2" class="btnCalculadora numero">2</div>
-                <div id="3" class="btnCalculadora numero">3</div>
-                <div id="dividir" class="btnCalculadora operador">/</div>
-                <div class="btnCalculadora numero"><button id="cero" type="button">0</button></div>
-                <div class="btnCalculadora numero"><button id="uno" type="button">1</button></div>
-                <div id="igual" class="btnCalculadora">=</div>
-                <div id="reset" class="btnCalculadora">Reset</div>
-                <div id="borrar" class="btnCalculadora">Borrar</div>
+                <div class="columna">
+                    <div id="7" class="btnCalculadora numero">7</div>
+                    <div id="4" class="btnCalculadora numero">4</div>
+                    <div id="1" class="btnCalculadora numero">1</div>
+                    <div id="0" class="btnCalculadora numero">0</div>
+                </div>
+                <div class="columna">
+                    <div id="8" class="btnCalculadora numero">8</div>
+                    <div id="5" class="btnCalculadora numero">5</div>
+                    <div id="2" class="btnCalculadora numero">2</div>
+                    <div id="borrar" class="btnCalculadora borrar">CE</div>
+                </div>
+                <div class="columna">
+                    <div id="9" class="btnCalculadora numero">9</div>
+                    <div id="6" class="btnCalculadora numero">6</div>
+                    <div id="3" class="btnCalculadora numero">3</div>
+                    <div id="reset" class="btnCalculadora reset">C</div>
+                </div>
+                <div id="contenedorOperadores" class="columna">
+                    <div id="mas" class="btnCalculadora operador">+</div>
+                    <div id="menos" class="btnCalculadora operador">-</div>
+                    <div id="por" class="btnCalculadora operador">*</div>
+                    <div id="dividir" class="btnCalculadora operador">/</div>
+                </div>
+                <div class="columna">
+                    <div id="igual" class="btnCalculadora igual">=</div>
+                </div>
             </div>
         </div>
     </main>

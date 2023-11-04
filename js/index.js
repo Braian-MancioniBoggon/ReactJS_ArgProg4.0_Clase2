@@ -1,18 +1,5 @@
-const pantalla = document.getElementById("pantalla");
-const cero = document.getElementById("cero");
-const uno = document.getElementById("uno");
-const dos = document.getElementById("2");
-const tres = document.getElementById("3");
-const cuatro = document.getElementById("4");
-const cinco = document.getElementById("5");
-const seis = document.getElementById("6");
-const siete = document.getElementById("7");
-const ocho = document.getElementById("8");
-const nueve = document.getElementById("9");
-const mas = document.getElementById("mas");
-const menos = document.getElementById("menos");
-const por = document.getElementById("por");
-const dividir = document.getElementById("dividir");
+const numerosCalculadora = document.querySelectorAll(".numero");
+const operadoresCalculadora = document.querySelectorAll(".operador");
 const igual = document.getElementById("igual");
 const reset = document.getElementById("reset");
 const borrar = document.getElementById("borrar");
@@ -34,26 +21,31 @@ const resetearCalculadora = () => {
     finalOperacion = false;
 };
 
+const borrarCalculadora = () => {
+    pantalla.value="";
+    if (controlOperacion === 1){
+        numero1 = 0;
+    } else {
+        numero2 = 0;
+    };
+};
+
 let concatenarNumeros = (numero) => {
     if (controlOperacion === 1){
         if (pantalla === ""){
             pantalla.value = numero;
             numero1 = Number(pantalla.value);
-            console.log(`numero1: ${numero1}`);
         } else {
             pantalla.value += numero;
             numero1 = Number(pantalla.value);
-            console.log(`numero1: ${numero1}`);
         };
     } else {
         if (pantalla === ""){
             pantalla.value = numero;
             numero2 = Number(pantalla.value);
-            console.log(`numero2: ${numero2}`);
         } else {
             pantalla.value += numero;
             numero2 = Number(pantalla.value);
-            console.log(`numero2: ${numero2}`);
         };
     };
 };
@@ -63,18 +55,11 @@ const obtenerOperador = (operador) => {
         pantalla.value="";
         simboloOperador = operador;
         controlOperacion++;
-        console.log(`menor a 2 operador: ${operador}`);
-        console.log(`menor a 2 control: ${controlOperacion}`);
-        console.log(`menor a 2 numero2: ${numero2}`);
     } else {
         pantalla.value="";
         simboloOperador = operador;
         numero1 = calcularOperacion();
         controlOperacion++;
-        console.log(`mayor a 2 operador: ${operador}`);
-        console.log(`mayor a 2 control: ${controlOperacion}`);
-        console.log(`mayor a 2 numero1: ${numero1}`);
-        console.log(`mayor a 2 numero2: ${numero2}`);
     };
 };
 
@@ -115,21 +100,43 @@ const finalizarCalculo = () => {
         pantalla.value=resultado;
         controlOperacion = 1;
         finalOperacion = true;
-        console.log(resultado);
     };
 };
 
-const consultarNuevaOperacion = (nuevaOperacion) => {
+const consultarNuevaOperacion = (nuevaOperacion, numero) => {
+    let aux = 0;
     if (finalOperacion){
+        aux = numero;
         resetearCalculadora();
         nuevaOperacion;
+        pantalla.value = numero;
+        numero1 = Number(numero);
+
     } else {
         nuevaOperacion;
     };
 };
 
-uno.addEventListener("click", () => {consultarNuevaOperacion(concatenarNumeros(uno.innerHTML))});
-dos.addEventListener("click", () => {consultarNuevaOperacion(concatenarNumeros(dos.innerHTML))});
-mas.addEventListener("click", () => {consultarNuevaOperacion(obtenerOperador(mas.innerHTML))});
+const apretarNumero = (event) => {
+    let numero = event.target.innerHTML;
+    consultarNuevaOperacion(concatenarNumeros(numero),numero);
+}
+
+const apretarOperador = (event) => {
+    let operador = event.target.innerHTML;
+    consultarNuevaOperacion(obtenerOperador(operador));
+}
+
+numerosCalculadora.forEach((numero) => {
+    numero.addEventListener("click", apretarNumero);
+})
+
+operadoresCalculadora.forEach((operador) => {
+    operador.addEventListener("click", apretarOperador);
+})
+
 igual.addEventListener("click", () => {finalizarCalculo()});
+
+borrar.addEventListener("click", () => {borrarCalculadora()});
+
 reset.addEventListener("click", () => {resetearCalculadora()});

@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    font-family: 'Quicksand', sans-serif;
 }
 
 body{
@@ -17,31 +18,82 @@ main{
 #container{
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 20%;
     justify-content: space-evenly;
-    padding: 30px;
     background: rgba(255, 255, 255, 0.05);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(10px);
-    border-radius: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+    min-width: 300px;
 }
 
 #pantalla{
     width: 100%;
-    font-size: 40px;
+    font-size: 60px;
     font-weight: bolder;
+    text-align: right;
+    border: none;
+    background-color: #244BA0;
+    color: #ffffff;
+    font-weight: 300;
+}
+
+#pantalla:focus{
+    border: none;
+}
+
+#pantalla:hover{
+    border: none;
 }
 
 #contenedorBotonera{
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
 }
 
 .btnCalculadora{
-    width: 30%;
-    height: 20px;
+    width: 100%;
     text-align: center;
-    padding: 15px 0px;
+    padding: 25px 0px;
+}
+
+#contenedorNumeros{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 33%;
+}
+
+.columna{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 20%;
+}
+
+#igual{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #F6872C;
+    justify-content: center;
+}
+
+.numero .borrar .reset{
+    background-color: #DCDCDC;
+    color: #000000;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.operador{
+    background-color: #D0D0D0;
 }
