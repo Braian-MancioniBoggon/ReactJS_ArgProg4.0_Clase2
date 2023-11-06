@@ -3,139 +3,97 @@ const operadoresCalculadora = document.querySelectorAll(".operador");
 const igual = document.getElementById("igual");
 const reset = document.getElementById("reset");
 const borrar = document.getElementById("borrar");
+const pantalla = document.getElementById("pantalla");
+const pantallaChica = document.getElementById("pantallaChica");
 
-let numero1 = 0;
-let numero2 = 0;
-let resultado = 0;
-let simboloOperador = "";
-let controlOperacion = 1;
-let finalOperacion = false;
+let numeroIngresado = "";
+let operacionFinalizada = false;
+let sinNumero = true;
 
 const resetearCalculadora = () => {
     pantalla.value="";
-    numero1 = 0;
-    numero2 = 0;
-    resultado = 0;
-    simboloOperador = "";
-    controlOperacion = 1;
-    finalOperacion = false;
+    pantallaChica.value = "";
+    numeroIngresado = "";
 };
 
 const borrarCalculadora = () => {
-    pantalla.value="";
-    if (controlOperacion === 1){
-        numero1 = 0;
-    } else {
-        numero2 = 0;
-    };
-};
-
-let concatenarNumeros = (numero) => {
-    if (controlOperacion === 1){
-        if (pantalla === ""){
-            pantalla.value = numero;
-            numero1 = Number(pantalla.value);
-        } else {
-            pantalla.value += numero;
-            numero1 = Number(pantalla.value);
-        };
-    } else {
-        if (pantalla === ""){
-            pantalla.value = numero;
-            numero2 = Number(pantalla.value);
-        } else {
-            pantalla.value += numero;
-            numero2 = Number(pantalla.value);
-        };
-    };
-};
-
-const obtenerOperador = (operador) => {
-    if (controlOperacion === 1){
+    if (!operacionFinalizada){
         pantalla.value="";
-        simboloOperador = operador;
-        controlOperacion++;
-    } else {
-        pantalla.value="";
-        simboloOperador = operador;
-        numero1 = calcularOperacion();
-        controlOperacion++;
-    };
-};
-
-const operacionMatematica = () => {
-    switch(simboloOperador){
-        case "+":
-            resultado = numero1 + numero2;
-        break;
-        case "-":
-            resultado = numero1 - numero2;
-        break;
-        case "/":
-            if(numero2 > 0){
-                resultado = numero1 / numero2;
-            } else {
-                resultado = "No se puede dividir entre cero"
-            };      
-        break;
-        case "*":
-            resultado = numero1 * numero2;
-        break;
-        default:
-            resultado = 0;
-        break;
-    };
-};
-
-const calcularOperacion = () => {
-    if (simboloOperador !== ""){
-        operacionMatematica();
-        return resultado;
-    };
-};
-
-const finalizarCalculo = () => {
-    if (simboloOperador !== ""){
-        operacionMatematica();
-        pantalla.value=resultado;
-        controlOperacion = 1;
-        finalOperacion = true;
-    };
-};
-
-const consultarNuevaOperacion = (nuevaOperacion, numero) => {
-    let aux = 0;
-    if (finalOperacion){
-        aux = numero;
-        resetearCalculadora();
-        nuevaOperacion;
-        pantalla.value = numero;
-        numero1 = Number(numero);
-
-    } else {
-        nuevaOperacion;
+        numeroIngresado = "";
     };
 };
 
 const apretarNumero = (event) => {
     let numero = event.target.innerHTML;
-    consultarNuevaOperacion(concatenarNumeros(numero),numero);
+    sinNumero = false;
+    if (operacionFinalizada){
+        pantalla.value = "";
+        pantalla.value += numero;
+        pantallaChica.value = "";
+        numeroIngresado = "";
+        numeroIngresado += numero;
+        operacionFinalizada = false;
+    } else {
+        pantalla.value += numero;
+        numeroIngresado += numero;
+    }
+}
+
+const validarOperador = (operadorIngresado) => {
+    let anteUltimoCaracter = pantallaChica.value.substring(pantallaChica.value.length, pantallaChica.value.length - 1);
+    if (anteUltimoCaracter === "+" || anteUltimoCaracter === "-" || anteUltimoCaracter === "*" || anteUltimoCaracter === "/"){
+        pantallaChica.value = pantallaChica.value.substring(0, pantallaChica.value.length - 1);
+        pantallaChica.value += operadorIngresado;
+    } else {
+        pantallaChica.value += operadorIngresado;
+    };
+    numeroIngresado = "";
 }
 
 const apretarOperador = (event) => {
     let operador = event.target.innerHTML;
-    consultarNuevaOperacion(obtenerOperador(operador));
+    if (!sinNumero){
+        if(operacionFinalizada){
+            operacionFinalizada = false;
+            pantallaChica.value = "";
+            pantallaChica.value = numeroIngresado;
+            pantalla.value = "";
+            validarOperador(operador);        
+        } else {
+            pantallaChica.value += numeroIngresado;
+            pantalla.value = "";
+            validarOperador(operador);  
+        };
+    };
+}
+
+const calcular = () => {
+    if (!operacionFinalizada){
+        pantallaChica.value += pantalla.value;
+        resultado = eval(pantallaChica.value);
+        if (resultado == "Infinity"){
+            pantalla.value = "Math error ";
+            operacionFinalizada = true;
+        } else if (resultado == undefined){
+            pantalla.value = "0";
+            operacionFinalizada = true;
+        } else {
+            pantalla.value = resultado;
+            numeroIngresado = resultado;
+            operacionFinalizada = true;
+        };
+    };
 }
 
 numerosCalculadora.forEach((numero) => {
     numero.addEventListener("click", apretarNumero);
-})
+});
 
 operadoresCalculadora.forEach((operador) => {
     operador.addEventListener("click", apretarOperador);
-})
+});
 
-igual.addEventListener("click", () => {finalizarCalculo()});
+igual.addEventListener("click", () => {calcular()});
 
 borrar.addEventListener("click", () => {borrarCalculadora()});
 

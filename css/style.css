@@ -31,7 +31,6 @@ main{
 #pantalla{
     width: 100%;
     font-size: 60px;
-    font-weight: bolder;
     text-align: right;
     border: none;
     background-color: #244BA0;
@@ -45,6 +44,16 @@ main{
 
 #pantalla:hover{
     border: none;
+}
+
+#pantallaChica{
+    width: 100%;
+    font-size: 20px;
+    border: none;
+    background-color: #244BA0;
+    color: #ffffff;
+    font-weight: 300;
+    padding: 5px;
 }
 
 #contenedorBotonera{
