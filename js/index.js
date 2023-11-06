@@ -81,7 +81,7 @@ const apretarOperador = (event) => {
 const calcular = () => {
     if (!operacionFinalizada){
         pantallaChica.value += pantalla.value;
-        resultado = eval(pantallaChica.value);
+        resultado = eval(pantallaChica.value).toFixed(2);
         //No se puede dividir por 0
         if (resultado == "Infinity"){
             pantalla.value = "Math error ";
