@@ -1,4 +1,4 @@
-# Argentina Programa 4.0 - React JS - Clase 2 - Ejercicio
+# Argentina Programa 4.0 - React JS - Clase 2 - Ejercicio 2
 
 ## Enunciado N°1:
 Tengo desarrollada la siguiente función en javascript  
