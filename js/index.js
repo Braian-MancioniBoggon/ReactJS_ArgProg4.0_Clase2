@@ -3,7 +3,7 @@ const numerosCalculadora = document.querySelectorAll(".numero");
 const operadoresCalculadora = document.querySelectorAll(".operador");
 const igual = document.getElementById("igual");
 const reset = document.getElementById("reset");
-const borrar = document.getElementById("borrar");
+const botonPunto = document.getElementById("punto");
 const pantalla = document.getElementById("pantalla");
 const pantallaChica = document.getElementById("pantallaChica");
 
@@ -11,12 +11,15 @@ const pantallaChica = document.getElementById("pantallaChica");
 let numeroIngresado = "";
 let operacionFinalizada = false;
 let sinNumero = true;
+let hayPunto = false;
 
 //Borro todos los numeros ingresados para comenzar una cuenta nueva
 const resetearCalculadora = () => {
     pantalla.value="";
     pantallaChica.value = "";
     numeroIngresado = "";
+    reset.innerHTML = "C";
+    hayPunto = false;
 };
 
 //Con esta funcion puedo borrar el numero que estoy ingresando para cambiarlo por otro menos cuando se muestra el resultado de la cuenta
@@ -24,6 +27,17 @@ const borrarCalculadora = () => {
     if (!operacionFinalizada){
         pantalla.value="";
         numeroIngresado = "";
+        reset.innerHTML = "C";
+        hayPunto = false;
+    };
+};
+
+//Dependiendo si hay un numero ingresado o no se utiliza borrar o resetear calculadora
+const borrarOresetear = () => {
+    if (reset.innerHTML === "CE"){
+        borrarCalculadora();
+    } else {
+        resetearCalculadora();
     };
 };
 
@@ -31,6 +45,7 @@ const borrarCalculadora = () => {
 const apretarNumero = (event) => {
     let numero = event.target.innerHTML;
     sinNumero = false;
+    reset.innerHTML = "CE";
     //Si se esta mostrando el resultado de una cuenta, se va a borrar los datos de esa cuenta e ingresaran los nuevos numeros
     if (operacionFinalizada){
         pantalla.value = "";
@@ -59,6 +74,7 @@ const validarOperador = (operadorIngresado) => {
 
 //Ingreso el signo a la "pantalla" de la calculadora
 const apretarOperador = (event) => {
+    reset.innerHTML = "C";
     let operador = event.target.innerHTML;
     //Si no hay numeros no se puede utilizar los signos
     if (!sinNumero){
@@ -68,17 +84,35 @@ const apretarOperador = (event) => {
             pantallaChica.value = "";
             pantallaChica.value = numeroIngresado;
             pantalla.value = "";
-            validarOperador(operador);        
+            validarOperador(operador);  
+            hayPunto = false;      
         } else {
             pantallaChica.value += numeroIngresado;
             pantalla.value = "";
-            validarOperador(operador);  
+            validarOperador(operador); 
+            hayPunto = false; 
+        };
+    };
+}
+
+//Ingreso un "." para colocar decimales
+const apretarPunto = () => {
+    let punto = botonPunto.innerHTML;
+    if (!operacionFinalizada){
+        if (pantalla.value !== ""){
+            //Solo se puede agregar un "." por numero
+            if (!hayPunto){
+                pantalla.value += punto;
+                hayPunto = true;
+                numeroIngresado += punto;
+            };
         };
     };
 }
 
 //Calculo la cuenta ingresada y muestro el resultado en la "pantalla"
 const calcular = () => {
+    reset.innerHTML = "C";
     if (!operacionFinalizada){
         pantallaChica.value += pantalla.value;
         resultado = eval(pantallaChica.value).toFixed(2);
@@ -111,8 +145,8 @@ operadoresCalculadora.forEach((operador) => {
 //Creo el evento para el signo "="
 igual.addEventListener("click", () => {calcular()});
 
-//Creo el evento para el boton "CE"
-borrar.addEventListener("click", () => {borrarCalculadora()});
+//Creo el evento para el boton "."
+botonPunto.addEventListener("click", () => {apretarPunto()});
 
-//Creo el evento para el boton "C"
-reset.addEventListener("click", () => {resetearCalculadora()});
+//Creo el evento para el boton "C" y "CE"
+reset.addEventListener("click", () => {borrarOresetear()});
