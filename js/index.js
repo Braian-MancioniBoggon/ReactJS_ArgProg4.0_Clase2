@@ -115,7 +115,8 @@ const calcular = () => {
     reset.innerHTML = "C";
     if (!operacionFinalizada){
         pantallaChica.value += pantalla.value;
-        resultado = eval(pantallaChica.value).toFixed(2);
+        resultado = eval(pantallaChica.value);
+        resultado = Math.trunc(resultado * 100) / 100;
         //No se puede dividir por 0
         if (resultado == "Infinity"){
             pantalla.value = "Math error ";
