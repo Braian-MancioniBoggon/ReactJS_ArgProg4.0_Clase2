@@ -47,7 +47,7 @@ const apretarNumero = (event) => {
     sinNumero = false;
     reset.innerHTML = "CE";
     //Si se esta mostrando el resultado de una cuenta, se va a borrar los datos de esa cuenta e ingresaran los nuevos numeros
-    if (operacionFinalizada){
+    if (pantalla.value != "0"){
         pantalla.value = "";
         pantalla.value += numero;
         pantallaChica.value = "";
@@ -58,6 +58,7 @@ const apretarNumero = (event) => {
         pantalla.value += numero;
         numeroIngresado += numero;
     }
+
 }
 
 //Si el usuario ingresa dos signos seguidos, solo el ultimo signo va a quedar para la cuenta
@@ -125,11 +126,14 @@ const calcular = () => {
         } else if (resultado == undefined){
             pantalla.value = "0";
             operacionFinalizada = true;
-        } else {
-            pantalla.value = resultado;
-            numeroIngresado = resultado;
+        } else if (isNaN()){
+            pantalla.value = "0";
             operacionFinalizada = true;
-        };
+        } else {
+        pantalla.value = resultado;
+        numeroIngresado = resultado;
+        operacionFinalizada = true;
+    };
     };
 }
 
